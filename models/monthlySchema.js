@@ -12,6 +12,7 @@ const monthsSchema = mongoose.Schema({
            type:[String],
            required:true
     },
+    
     taxes:{
         type:Number,
         requierd:true,

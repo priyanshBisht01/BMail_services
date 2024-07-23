@@ -81,3 +81,29 @@ export const deleteMonthlyPlan = async(req,res)=>{
     })
 }
 }
+// get all monthly subscription
+export const getAllMonthlySubscriptions = async (req,res)=>{
+    try{
+       
+        const data = await monthlyplans.findById(req.params.id)
+        if(!data){
+           return  res.status(400).json({
+                Success:false,
+                message:"no data found"
+            })
+                                                             
+        }
+        res.status(200).json({
+            Success:true,
+            message:"data fetched",
+            data
+        })
+       
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err
+        })
+    }
+}

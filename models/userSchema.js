@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const userSchema = mongoose.Schema({
     name:{
         type:String,
@@ -19,6 +20,21 @@ const userSchema = mongoose.Schema({
         state: { type: String },
         zip: { type: String },
         country: { type: String },
+      },
+      subscriptionId:{
+        type:mongoose.Schema.Types.ObjectId,
+        default:null
+
+      },
+      monthlyPlanId:{
+        type:mongoose.Schema.Types.ObjectId,
+        default:null
+      },
+      planStatus:{
+        type:String,
+        enum: ['active', 'inactive'],
+        default:'inactive'
+
       },
 
     role:{
