@@ -1,7 +1,7 @@
 
 import mongoose from "mongoose";
 
-const monthsSchema = mongoose.Schema({
+const emailServiceMonthsSchema = mongoose.Schema({
     subscriptionsId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Subscriptions",
@@ -30,4 +30,4 @@ required:true
 
 
 })
-export const monthlyplans = mongoose.model('monthlyplans',monthsSchema)
+export const emailServicesMonthlyplans = mongoose.model('emailServicesMonthlyplans',emailServiceMonthsSchema)

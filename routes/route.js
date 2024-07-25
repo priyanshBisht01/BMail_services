@@ -4,7 +4,10 @@ import { createSubscription, deleteSubscriptions, getAllSubscriptions, updateSub
 import { isAdmin, isSignedIn } from '../middlewares/atuhMiddleware.js';
 import { createMonthlyPlans, updateMonthlyPlan ,deleteMonthlyPlan, getAllMonthlySubscriptions} from '../controllers/monthlyController.js';
 import { Subscriptions } from '../models/subscriptionSchema.js';
-import { addSubscription, getSubscriptionDetails } from '../controllers/subscribersController.js';
+import { addSubscription, deleteUserSubscription, getSubscriptionDetails } from '../controllers/subscribersController.js';
+import { sendEmail } from '../helper/emailSender.js';
+import { createEmailServices, deleteEmailservices, getAllEmailServices, updateEmailServices } from '../controllers/emailServiceController.js';
+import { createEmailMonthlyPlans, updateEmailMonthlyPlan } from '../controllers/emailServicesMonthlyController.js';
 const router = express.Router();
 // Register Route
 router.post('/register',RegisterController)
@@ -42,7 +45,28 @@ router.get('/getAll-MonthlyPlans/:id',isSignedIn,getAllMonthlySubscriptions)
 router.put ('/create-newSubscriber/:id',isSignedIn,addSubscription)
 // get current subscription details
 router.get('/getCurrentSubscriptions/:id',isSignedIn,getSubscriptionDetails)
+// delete subscription of the user
+router.delete('/deleteSubscription/:id',isSignedIn,deleteUserSubscription)
 
+//for email services admin
+
+// for creating email services
+router.post('/create-emailServices',isSignedIn,isAdmin,createEmailServices)
+// for updating email services
+router.put('/update-emailServices/:id',isSignedIn,isAdmin,updateEmailServices)
+//for getting all email services
+router.get('/getAll-emailServices',isSignedIn,isAdmin,getAllEmailServices)
+// for deleting email services
+router.delete('/delete-emailServices/:id',isSignedIn,isAdmin,deleteEmailservices)
+
+//for email services monthly plan admin
+
+// for creating monthly plan for specific email services
+router.post('/create-emailMontlyPlan',isSignedIn,isAdmin,createEmailMonthlyPlans)
+//for updating monthly plan 
+router.put('/update-emailMonthlyPlan/:id',isSignedIn,isAdmin,updateEmailMonthlyPlan)
+// email testing 
+// router.get('/email',sendEmail)
 //testing
 router.get('/test',isSignedIn,isAdmin,testController);
 

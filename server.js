@@ -29,6 +29,8 @@ app.use('/api/v1/auth',router)
 app.use('/api/v1/subscriptions',router)
 app.use('/api/v1/monthlyPlan',router)
 app.use('/api/v1/subscribers',router)
+app.use('/api/v1/emailServices',router)
+app.use('/api/v1/emailServiceMonthly',router)
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
