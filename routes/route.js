@@ -7,7 +7,8 @@ import { Subscriptions } from '../models/subscriptionSchema.js';
 import { addSubscription, deleteUserSubscription, getSubscriptionDetails } from '../controllers/subscribersController.js';
 import { sendEmail } from '../helper/emailSender.js';
 import { createEmailServices, deleteEmailservices, getAllEmailServices, updateEmailServices } from '../controllers/emailServiceController.js';
-import { createEmailMonthlyPlans, updateEmailMonthlyPlan } from '../controllers/emailServicesMonthlyController.js';
+import { createEmailMonthlyPlans, deleteEmailMonthlyPlan, getAllEmailMonthlySubscriptions, updateEmailMonthlyPlan } from '../controllers/emailServicesMonthlyController.js';
+import { addemailServiceSubscription, getEmailSubscriptionDetails } from '../controllers/emailServicesSubscriberController.js';
 const router = express.Router();
 // Register Route
 router.post('/register',RegisterController)
@@ -65,6 +66,20 @@ router.delete('/delete-emailServices/:id',isSignedIn,isAdmin,deleteEmailservices
 router.post('/create-emailMontlyPlan',isSignedIn,isAdmin,createEmailMonthlyPlans)
 //for updating monthly plan 
 router.put('/update-emailMonthlyPlan/:id',isSignedIn,isAdmin,updateEmailMonthlyPlan)
+//for deleting the monthly plan
+router.delete('/delete-emailMonthlyPlan/:id',isSignedIn,isAdmin,deleteEmailMonthlyPlan);
+// for getting all monthly plan for specific subscription
+router.get('/get-emailMonthlyServicesPlan/:id',isSignedIn,getAllEmailMonthlySubscriptions);
+
+
+// for subscriber [email Services]
+
+// add subscriber
+router.put('/create-emailService/:id',isSignedIn,addemailServiceSubscription)
+// get detail of the plan
+router.get('/get-emailService/:id',isSignedIn,getEmailSubscriptionDetails)
+
+
 // email testing 
 // router.get('/email',sendEmail)
 //testing

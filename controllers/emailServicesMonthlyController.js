@@ -69,3 +69,45 @@ res.status(500).json({
 })
     }
 }
+
+export const deleteEmailMonthlyPlan = async(req,res)=>{
+    try{
+        const deleted = await emailServicesMonthlyplans.findByIdAndDelete(req.params.id);
+        if (!deleted) {
+          return res.status(404).json({ success: false, message: 'Subscription not found' });
+        }
+        res.status(200).json({ success: true, message: 'Subscription deleted successfully' });
+    }
+    catch(err){
+        res.status(500).json({
+            Success:false,
+            message:err
+    })
+}
+}
+
+export const getAllEmailMonthlySubscriptions = async (req,res)=>{
+    try{
+       
+        const data = await emailServicesMonthlyplans.findById(req.params.id)      
+        if(!data){
+           return  res.status(400).json({
+                Success:false,
+                message:"no data found"
+            })
+                                                             
+        }
+        res.status(200).json({
+            Success:true,
+            message:"data fetched",
+            data
+        })
+       
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message:err
+        })
+    }
+}

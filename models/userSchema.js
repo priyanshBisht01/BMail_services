@@ -51,6 +51,32 @@ type:Date,
 default:null
     },
 
+    // for email services 
+    
+    emailSubscriptionId:{
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
+    emailPlanPrice:{
+type:Number
+    },
+    emailPlanDuration:{
+type:Number
+    },
+    emailPlanStatus:{
+type:String,
+enum:["active","inactive"],
+default:"inactive"
+    },
+    emailStartDate:{
+      type:Date,
+      default:Date.now
+    },
+    emailEndDate:{
+type:Date,
+default:null
+    },
+
     role: {
       type: Number,
       default: 0,
