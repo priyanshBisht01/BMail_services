@@ -8,8 +8,13 @@ import { addSubscription, deleteUserSubscription, getSubscriptionDetails } from 
 import { sendEmail } from '../helper/emailSender.js';
 import { createEmailServices, deleteEmailservices, getAllEmailServices, updateEmailServices } from '../controllers/emailServiceController.js';
 import { createEmailMonthlyPlans, deleteEmailMonthlyPlan, getAllEmailMonthlySubscriptions, updateEmailMonthlyPlan } from '../controllers/emailServicesMonthlyController.js';
-import { addemailServiceSubscription, getEmailSubscriptionDetails } from '../controllers/emailServicesSubscriberController.js';
+import { addemailServiceSubscription, deleteUserEmailSubscription, getEmailSubscriptionDetails } from '../controllers/emailServicesSubscriberController.js';
+import { createVpsHosting, deleteVpsHosting, getAllVpsHosting, updateVpsHosting } from '../controllers/vpsHostingController.js';
+import { createVpsHostingMonthlyPlans, deleteVpsHostingMonthlyPlan, getVpsHostingMonthlyPlan, updateVpsHostingMonthly } from '../controllers/vpsHostingMonthlyPlanController.js';
+import { addVpsSubscription, deleteUserVpsSubscription, getVpsSubscriptionDetails } from '../controllers/vpsHostingSubscriberController.js';
 const router = express.Router();
+const vpsMonthlyRouter = express.Router()
+const vpsSubscriber = express.Router()
 // Register Route
 router.post('/register',RegisterController)
 // Login route
@@ -75,14 +80,41 @@ router.get('/get-emailMonthlyServicesPlan/:id',isSignedIn,getAllEmailMonthlySubs
 // for subscriber [email Services]
 
 // add subscriber
-router.put('/create-emailService/:id',isSignedIn,addemailServiceSubscription)
+router.put('/create-UserEmailService/:id',isSignedIn,addemailServiceSubscription)
 // get detail of the plan
-router.get('/get-emailService/:id',isSignedIn,getEmailSubscriptionDetails)
+router.get('/get-UserEmailService/:id',isSignedIn,getEmailSubscriptionDetails)
+// deleting or canceling plan
+router.delete('/delete-UserEmailServices/:id',isSignedIn,deleteUserEmailSubscription);
 
 
+// vps hosting 
+
+//create vps hosting plan
+router.post('/create-vpsHosting',isSignedIn,isAdmin,createVpsHosting)
+// updating the hostiing plan
+router.put('/update-vpsHosting/:id',isSignedIn,isAdmin,updateVpsHosting)
+// for getting all plans
+router.get('/getAll-vpsHosting',isSignedIn,isAdmin,getAllVpsHosting)
+// for deleting vps Hosting plan
+router.delete('/delete-vpsHosting/:id',isSignedIn,isAdmin,deleteVpsHosting) 
+
+
+
+// vps hosting monthly plan
+vpsMonthlyRouter.post('/createMonthlyplan-vpsHosting',isSignedIn,isAdmin,createVpsHostingMonthlyPlans)
+vpsMonthlyRouter.put('/updateMonthlyPlan-vpsHosting/:id',isSignedIn,isAdmin,updateVpsHostingMonthly )
+vpsMonthlyRouter.delete('/deleteMonthlyPlan-vpsHosting/:id',isSignedIn,isAdmin,deleteVpsHostingMonthlyPlan)
+vpsMonthlyRouter.get('/getMonthly-vpsHosting/:id',isSignedIn,getVpsHostingMonthlyPlan)
+
+
+//for subscriber to subscribe the vps hosting 
+
+vpsSubscriber.put('/create-vpsSubscriber/:id',isSignedIn,addVpsSubscription)
+vpsSubscriber.get('/get-vpsSubsciption/:id',isSignedIn,getVpsSubscriptionDetails)
+vpsSubscriber.put('/delete-vpsSubsciber/:id',isSignedIn,deleteUserVpsSubscription)
 // email testing 
 // router.get('/email',sendEmail)
 //testing
 router.get('/test',isSignedIn,isAdmin,testController);
 
-export default router
+export  {router,vpsMonthlyRouter,vpsSubscriber}

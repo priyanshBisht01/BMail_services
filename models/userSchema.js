@@ -52,16 +52,18 @@ default:null
     },
 
     // for email services 
-    
+
     emailSubscriptionId:{
       type: mongoose.Schema.Types.ObjectId,
       default: null,
     },
     emailPlanPrice:{
-type:Number
+type:Number,
+default:null
     },
     emailPlanDuration:{
-type:Number
+type:Number,
+default:null
     },
     emailPlanStatus:{
 type:String,
@@ -75,6 +77,32 @@ default:"inactive"
     emailEndDate:{
 type:Date,
 default:null
+    },
+    vpsSubscriptionId:{
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
+    
+    vpsPlanPrice:{
+      type:Number,
+      default:null
+    },
+    vpsPlanDuration:{
+      type:Number,
+      default:null
+    },
+    vpsPlanStatus:{
+      type:String,
+      enum:["active","inactive"],
+      default:"inactive"
+    },
+    vpsStartDate:{
+      type:Date,
+      default:Date.now
+    },
+    vpsEndDate:{
+      type:Date,
+      default:null
     },
 
     role: {

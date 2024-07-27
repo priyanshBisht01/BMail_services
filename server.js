@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import dbConnection from './database/db.js';
-import router from './routes/route.js';
+import  { router,vpsMonthlyRouter, vpsSubscriber } from './routes/route.js';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 
@@ -32,6 +32,9 @@ app.use('/api/v1/subscribers',router)
 app.use('/api/v1/emailServices',router)
 app.use('/api/v1/emailServiceMonthly',router)
 app.use('/api/v1/emailSubscriber',router)
+app.use('/api/v1/vpsHosting',router)
+app.use('/api/v1/vpsHostingMonthly',vpsMonthlyRouter)
+app.use('/api/v1/vpsSubscriber',vpsSubscriber)
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
